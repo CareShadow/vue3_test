@@ -1,0 +1,27 @@
+<template>
+    <div class="logo_container">
+        <img src="@/assets/logo.png" alt="Logo" class="logo_img">
+        <p>SIMPLE_MI系统</p>
+    </div>
+</template>
+
+<style scoped>
+.logo_container {
+    display: flex;
+    height: 50px;
+    align-items: center;
+}
+
+.logo_container .logo_img {
+    padding: 0 20px;
+    width: 30px;
+    height: 30px;
+}
+
+.logo_container p {
+    font-size: 20px;
+    color: #fff;
+    font-weight: bold;
+    font-style: italic;
+}
+</style>

@@ -32,5 +32,12 @@ module.exports = defineConfig({
         symbolId: 'icon-[name]'
       })
       .end()
+  },
+  css: {
+    loaderOptions: {
+      sass: {
+        additionalData: `@import "@/styles/variables.scss";`
+      }
+    }
   }
 })

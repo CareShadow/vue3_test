@@ -5,7 +5,7 @@
 
 <script setup>
 import { onMounted } from 'vue';
-import Layout from './layout/index.vue'
+import Layout from './layout/index.vue';
 import useUserStore from './store/modules/user';
 
 let store = useUserStore();
@@ -15,4 +15,9 @@ onMounted(() => {
 })
 </script>
 
-<style scoped></style>
+<style scoped lang="scss">
+h1 {
+  color: $color;
+  font-size: calc(#{$base-font-size} - 2px)
+}
+</style>

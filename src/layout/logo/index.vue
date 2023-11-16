@@ -1,7 +1,7 @@
 <template>
     <div class="logo_container">
         <img src="@/assets/logo.png" alt="Logo" class="logo_img">
-        <p>SIMPLE_MI系统</p>
+        <p>智能制造系统SMI</p>
     </div>
 </template>
 
@@ -21,7 +21,6 @@
 .logo_container p {
     font-size: 20px;
     color: #fff;
-    font-weight: bold;
-    font-style: italic;
+    font-weight: 700;
 }
 </style>

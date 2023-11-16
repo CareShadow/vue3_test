@@ -1,21 +1,27 @@
 <template>
     <el-menu background-color="#001529" text-color="#fff">
-        <el-sub-menu index="1">
-            <template #title>
-                <span>MI_BASE</span>
-            </template>
-            <el-menu-item index="1-1">数据源连接</el-menu-item>
-            <el-menu-item index="1-2">数据集</el-menu-item>
-        </el-sub-menu>
-        <el-sub-menu index="2">
-            <template #title>
-                <span>MI_IDA</span>
-            </template>
-            <el-menu-item index="2-1">图表开发</el-menu-item>
-            <el-menu-item index="2-2">报表开发</el-menu-item>
-        </el-sub-menu>
-        <el-menu-item index="3">MI_IDG</el-menu-item>
-        <el-menu-item index="4">MI_IDF</el-menu-item>
+        <template v-for="(item, index) in menuList" :key="index">
+            <el-menu-item v-if="!item.children && !item.meta.hidden" :index="item.path">
+                <el-icon>
+                    <component :is="item.meta.icon"></component>
+                </el-icon>
+                <span class="menu_title">{{ item.meta.title }}</span>
+            </el-menu-item>
+            <el-menu-item v-if="item.children && item.children.length == 1 && !item.children[0].meta.hidden"
+                :index="item.children[0].path">
+                <!-- <span class="menu_title">{{ item.meta.title }}</span> -->
+                <Menu :menuList="item.children" />
+            </el-menu-item>
+            <el-sub-menu v-if="item.children && item.children.length > 1 && !item.meta.hidden" :index="item.path">
+                <template #title>
+                    <el-icon>
+                        <component :is="item.meta.icon"></component>
+                    </el-icon>
+                    <span class="menu_title">{{ item.meta.title }}</span>
+                </template>
+                <Menu :menuList="item.children" />
+            </el-sub-menu>
+        </template>
     </el-menu>
 </template>    
 
@@ -25,8 +31,14 @@ let props = defineProps(['menuList'])
 
 </script>
 
+<script>
+export default {
+    name: 'Menu'
+}
+</script>
+
 <style lang="scss" scoped>
-span {
+.menu_title {
     font-size: 16px;
     height: 48px;
     line-height: 48px;

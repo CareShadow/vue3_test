@@ -2,7 +2,9 @@
     <div class="layout_container">
         <div class="layout_slider">
             <Logo />
-            <Menu />
+            <el-scrollbar class="slider_scrollbar">
+                <Menu :menuList="userStore.constantRoutes" />
+            </el-scrollbar>
         </div>
         <div class="layout_tabbar">456</div>
         <div class="layout_main">789</div>
@@ -12,9 +14,12 @@
 <script setup>
 import Logo from '@/layout/logo/index'
 import Menu from '@/layout/menu/index'
+import useUserStore from '@/store/modules/user';
+
+let userStore = useUserStore();
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .layout_container {
     width: 100%;
     height: 100vh;
@@ -43,5 +48,15 @@ import Menu from '@/layout/menu/index'
     background-color: yellowgreen;
     left: 260px;
     top: 50px;
+}
+
+.slider_scrollbar {
+    width: 100%;
+    height: calc(100vh - 50px);
+
+    .el-menu {
+        border-right: none;
+    }
+
 }
 </style>

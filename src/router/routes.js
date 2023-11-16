@@ -1,4 +1,4 @@
-let routes = [
+let constantRoutes = [
     {
         path: '/login',
         component: () => import('@/views/login/index.vue'),
@@ -21,4 +21,4 @@ let routes = [
     }
 ]
 
-export default routes;
+export default constantRoutes;

@@ -3,11 +3,15 @@
         <div class="layout_slider">
             <Logo />
             <el-scrollbar class="slider_scrollbar">
-                <Menu :menuList="userStore.constantRoutes" />
+                <el-menu background-color="#001529" text-color="#fff">
+                    <Menu :menuList="userStore.constantRoutes" />
+                </el-menu>
             </el-scrollbar>
         </div>
         <div class="layout_tabbar">456</div>
-        <div class="layout_main">789</div>
+        <div class="layout_main">
+            <router-view></router-view>
+        </div>
     </div>
 </template>
 

@@ -9,18 +9,31 @@ let constantRoutes = [
         }
     },
     {
+        //登录成功以后展示数据的路由
         path: '/',
-        component: () => import('@/views/home/index.vue'),
-        name: 'layout', // 命名路由
+        component: () => import('@/layout/index.vue'),
+        name: 'layout',
         meta: {
-            title: '主页',
+            title: '',
             hidden: false,
-            icon: 'Grid'
-        }
+            icon: ''
+        },
+        redirect: '/home',
+        children: [
+            {
+                path: '/home',
+                component: () => import('@/views/home/index.vue'),
+                meta: {
+                    title: '首页',
+                    hidden: false,
+                    icon: 'HomeFilled'
+                }
+            }
+        ]
     },
     {
         path: '/base',
-        component: () => import('@/views/base/index.vue'),
+        component: () => import('@/layout/index.vue'), // 父路由要有router-view
         name: 'base',
         meta: {
             title: 'MI-BASE',
@@ -29,7 +42,7 @@ let constantRoutes = [
         },
         children: [
             {
-                path: 'datasource',
+                path: '/datasource',
                 component: () => import('@/views/base/datasource/index.vue'),
                 name: 'datasource',
                 meta: {
@@ -39,7 +52,7 @@ let constantRoutes = [
                 }
             },
             {
-                path: 'datacollection',
+                path: '/datacollection',
                 component: () => import('@/views/base/datacollection/index.vue'),
                 name: 'datacollection',
                 meta: {
@@ -51,14 +64,26 @@ let constantRoutes = [
         ]
     },
     {
-        path: '/echart',
-        component: () => import('@/views/echart/index.vue'),
-        name: 'echart',
+        path: '/dev',
+        component: () => import('@/layout/index.vue'),
+        name: 'dev',
         meta: {
-            title: '图表开发',
+            title: '',
             hidden: false,
-            icon: 'Document'
-        }
+            icon: ''
+        },
+        children: [
+            {
+                path: '/echart',
+                component: () => import('@/views/echart/index.vue'),
+                name: 'echart',
+                meta: {
+                    title: '图表开发',
+                    hidden: false,
+                    icon: 'Document'
+                }
+            }
+        ]
     },
     {
         path: '/404',

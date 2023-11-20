@@ -3,14 +3,16 @@
         <div class="layout_slider">
             <Logo />
             <el-scrollbar class="slider_scrollbar">
-                <el-menu background-color="#001529" text-color="#fff">
+                <el-menu :default-active="$router.path" background-color="#001529" text-color="#fff">
                     <Menu :menuList="userStore.constantRoutes" />
                 </el-menu>
             </el-scrollbar>
         </div>
-        <div class="layout_tabbar">456</div>
+        <div class="layout_tabbar">
+            <Tabbar />
+        </div>
         <div class="layout_main">
-            <router-view></router-view>
+            <Main />
         </div>
     </div>
 </template>
@@ -18,16 +20,19 @@
 <script setup>
 import Logo from '@/layout/logo/index'
 import Menu from '@/layout/menu/index'
+import Main from '@/layout/main/index'
+import Tabbar from '@/layout/tabbar/index'
+import { useRoute } from 'vue-router'
 import useUserStore from '@/store/modules/user';
 
 let userStore = useUserStore();
+let $router = useRoute();
 </script>
 
 <style lang="scss" scoped>
 .layout_container {
     width: 100%;
     height: 100vh;
-    background-color: red
 }
 
 .layout_container .layout_slider {
@@ -40,7 +45,6 @@ let userStore = useUserStore();
     position: fixed;
     width: calc(100% - 260px);
     height: 50px;
-    background-color: cyan;
     top: 0px;
     left: 260px;
 }

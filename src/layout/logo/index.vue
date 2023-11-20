@@ -14,7 +14,6 @@
 
 .logo_container .logo_img {
     padding: 0 20px;
-    width: 30px;
     height: 30px;
 }
 

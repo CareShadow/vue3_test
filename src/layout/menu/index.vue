@@ -1,10 +1,10 @@
 <template>
     <template v-for="(item, index) in menuList" :key="index">
         <el-menu-item v-if="!item.children && !item.meta.hidden" :index="item.path" @click="goRoute">
+            <el-icon>
+                <component :is="item.meta.icon"></component>
+            </el-icon>
             <template #title>
-                <el-icon>
-                    <component :is="item.meta.icon"></component>
-                </el-icon>
                 <span class="menu_title">{{ item.meta.title }}</span>
             </template>
         </el-menu-item>
@@ -29,7 +29,6 @@ import { useRouter } from 'vue-router';
 let props = defineProps(['menuList'])
 let $router = useRouter();
 const goRoute = (vc) => {
-    console.log(vc.index);
     $router.push(vc.index);
 }
 </script>

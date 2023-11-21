@@ -8,8 +8,10 @@
     </div>
 </template>
 
-<script setup>
-
+<script>
+export default {
+    name: 'Main'
+}
 </script>
 
 <style lang="scss" scoped>

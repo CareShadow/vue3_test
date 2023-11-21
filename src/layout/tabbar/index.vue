@@ -1,8 +1,8 @@
 <template>
     <div class="tabbar">
         <div class="tabbar_left">
-            <el-icon style="margin-right: 10px;">
-                <Expand />
+            <el-icon style="margin-right: 10px;" @click="changeTabberStatus">
+                <component :is="tabbarStore.openTabbar ? 'Expand' : 'Fold'"></component>
             </el-icon>
 
             <el-breadcrumb separator-icon="ArrowRight">
@@ -33,7 +33,17 @@
 </template>
 
 <script setup>
+import useTabbarStore from '@/store/modules/tabbar'
+let tabbarStore = useTabbarStore();
+const changeTabberStatus = () => {
+    tabbarStore.openTabbar = !tabbarStore.openTabbar
+}
+</script>
 
+<script>
+export default {
+    name: 'Tabbar'
+}
 </script>
 
 <style lang="scss" scoped>

@@ -5,6 +5,12 @@
     </div>
 </template>
 
+<script>
+export default {
+    name: 'Logo'
+}
+</script>
+
 <style scoped>
 .logo_container {
     display: flex;

@@ -40,6 +40,7 @@ let constantRoutes = [
             hidden: false,
             icon: 'Tools'
         },
+        redirect: '/datasource',
         children: [
             {
                 path: '/datasource',

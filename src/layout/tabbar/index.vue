@@ -6,8 +6,15 @@
             </el-icon>
 
             <el-breadcrumb separator-icon="ArrowRight">
-                <el-breadcrumb-item>MI-BASE</el-breadcrumb-item>
-                <el-breadcrumb-item>数据源连接</el-breadcrumb-item>
+                <el-breadcrumb-item v-for="(item, index) in $route.matched" :key="index" v-show="item.meta.title"
+                    :to="item.path">
+                    <div class="dev_breadcrumb">
+                        <el-icon style="margin: 0 10px 0 0;">
+                            <component :is="item.meta.icon"></component>
+                        </el-icon>
+                        {{ item.meta.title }}
+                    </div>
+                </el-breadcrumb-item>
             </el-breadcrumb>
         </div>
         <div class="tabbar_right">
@@ -34,7 +41,13 @@
 
 <script setup>
 import useTabbarStore from '@/store/modules/tabbar'
+import { onMounted } from 'vue';
+import { useRoute } from 'vue-router';
 let tabbarStore = useTabbarStore();
+let $route = useRoute();
+onMounted(() => {
+    console.log($route);
+})
 const changeTabberStatus = () => {
     tabbarStore.openTabbar = !tabbarStore.openTabbar
 }
@@ -57,6 +70,11 @@ export default {
         display: flex;
         align-items: center;
         margin-left: 20px;
+
+
+        .dev_breadcrumb {
+            display: flex;
+        }
     }
 
     .tabbar_right {

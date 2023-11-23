@@ -18,8 +18,8 @@
             </el-breadcrumb>
         </div>
         <div class="tabbar_right">
-            <el-button type="primary" size="small" icon="Refresh" circle></el-button>
-            <el-button type="primary" size="small" icon="FullScreen" circle></el-button>
+            <el-button type="primary" size="small" icon="Refresh" circle @click="refreshPage"></el-button>
+            <el-button type="primary" size="small" icon="FullScreen" circle @click="fullScreen"></el-button>
             <el-button type="primary" size="small" icon="Setting" circle></el-button>
             <img src="@/assets/logo.png" style="width: 24px;height: 24px;margin: 0px 10px;">
             <el-dropdown>
@@ -41,15 +41,22 @@
 
 <script setup>
 import useTabbarStore from '@/store/modules/tabbar'
-import { onMounted } from 'vue';
 import { useRoute } from 'vue-router';
 let tabbarStore = useTabbarStore();
 let $route = useRoute();
-onMounted(() => {
-    console.log($route);
-})
 const changeTabberStatus = () => {
     tabbarStore.openTabbar = !tabbarStore.openTabbar
+}
+const refreshPage = () => {
+    tabbarStore.refresh = !tabbarStore.refresh
+}
+const fullScreen = () => {
+    let flag = document.fullscreenElement;
+    if (!flag) {
+        document.documentElement.requestFullscreen();
+    } else {
+        document.exitFullscreen();
+    }
 }
 </script>
 

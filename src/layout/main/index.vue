@@ -2,11 +2,24 @@
     <div>
         <router-view v-slot="{ Component }">
             <transition name="fade">
-                <component :is="Component" />
+                <component :is="Component" v-if="refreshMain" />
             </transition>
         </router-view>
     </div>
 </template>
+
+<script setup>
+import { nextTick, ref, watch } from 'vue';
+import useTabbarStore from '@/store/modules/tabbar';
+let tabbarStore = useTabbarStore();
+let refreshMain = ref(true);
+watch(() => tabbarStore.refresh, () => {
+    refreshMain.value = false;
+    nextTick(() => {
+        refreshMain.value = true;
+    })
+})
+</script>
 
 <script>
 export default {

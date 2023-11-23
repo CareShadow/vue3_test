@@ -5,7 +5,8 @@ let useTabbarStore = defineStore('Tabbar', {
     // 小仓库存储数据地方
     state: () => {
         return {
-            openTabbar: true
+            openTabbar: true,
+            refresh: false
         };
     },
     // 异步|逻辑的地方

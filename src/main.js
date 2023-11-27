@@ -7,7 +7,8 @@ import 'element-plus/dist/index.css'
 import '@/assets/icons/icons.js'
 import router from '@/router/index.js'
 import pinia from '@/store/index.js'
-import globalComponent from '@/components/index.js';
+import globalComponent from '@/components/index.js'
+import './permission'
 
 
 const app = createApp(App)

@@ -39,5 +39,17 @@ module.exports = defineConfig({
         additionalData: `@import "@/styles/variables.scss";`
       }
     }
+  },
+  devServer: {
+    // 代理
+    proxy: {
+      '/api': {
+        target: 'http://localhost:8081',
+        changeOrigin: true,
+        pathRewrite: {
+          '^/api': ''
+        }
+      }
+    }
   }
 })

@@ -5,7 +5,7 @@ import useUserStore from '@/store/modules/user'
 
 // axios实例
 const request = axios.create({
-    baseURL: '', // 待定
+    baseURL: '/api', // 待定
     timeout: 5000,
 })
 
@@ -23,7 +23,8 @@ request.interceptors.response.use(
     },
     (error) => {
         let msg = '';
-        const status = error.response.status;
+        console.log(error);
+        const status = error.response.code;
         switch (status) {
             case 401:
                 msg = 'token过期';

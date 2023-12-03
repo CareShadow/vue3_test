@@ -10,4 +10,8 @@ const reqLogin = (data) => request.post(
     data
 )
 
-export { reqLogin }
+const reqUserInfo = () => request.get(
+    '/admin/userInfo'
+)
+
+export { reqLogin, reqUserInfo }

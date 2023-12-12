@@ -19,8 +19,14 @@ router.beforeEach(async (to, from, next) => {
                 next();
             } else {
                 // 发请求获取用户信息
-                userStore.userInfo();
-                next();
+                try {
+                    await userStore.userInfo();
+                    next();
+                } catch (error) {
+                    await userStore.userLogout();
+                    next({ path: '/login' })
+                }
+
             }
         }
     } else {

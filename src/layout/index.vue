@@ -67,8 +67,8 @@ export default {
         position: absolute;
         width: calc(100vw - 260px);
         height: calc(100vh - 50px);
-        background-color: yellowgreen;
         left: 260px;
+        padding: 20px;
         top: 50px;
         transition: all .3s;
     }

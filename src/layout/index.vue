@@ -40,7 +40,7 @@ export default {
 
 <style lang="scss" scoped>
 .layout_container {
-    width: 100%;
+    width: 100vw;
     height: 100vh;
 
     .layout_slider {
@@ -56,7 +56,7 @@ export default {
 
     .layout_tabbar {
         position: fixed;
-        width: calc(100% - 260px);
+        width: calc(100vw - 260px);
         height: 50px;
         top: 0px;
         left: 260px;
@@ -65,7 +65,7 @@ export default {
 
     .layout_main {
         position: absolute;
-        width: calc(100% - 260px);
+        width: calc(100vw - 260px);
         height: calc(100vh - 50px);
         background-color: yellowgreen;
         left: 260px;

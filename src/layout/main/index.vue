@@ -1,11 +1,9 @@
 <template>
-    <div>
-        <router-view v-slot="{ Component }">
-            <transition name="fade">
-                <component :is="Component" v-if="refreshMain" />
-            </transition>
-        </router-view>
-    </div>
+    <router-view v-slot="{ Component }">
+        <transition name="fade">
+            <component :is="Component" v-if="refreshMain" />
+        </transition>
+    </router-view>
 </template>
 
 <script setup>

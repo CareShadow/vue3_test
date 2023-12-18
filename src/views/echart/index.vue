@@ -1,9 +1,9 @@
 <template>
     <div class="drag_container">
-        <VueDragResize :isResizable="true" :isActive="true" :w="body.width" :h="body.height" @resizing="resize"
-            :x="body.left" :y="body.top" @dragging="resize" :preventActiveBehavior="true" contentClass="drag_style"
-            :parentLimitation="true">
-            <div id="main" :style="{ height: body.height + 'px', width: body.width + 'px' }">
+        <VueDragResize :isResizable="true" :isActive="dragObj.isActive" :w="dragObj.width" :h="dragObj.height"
+            @resizing="resize" :x="dragObj.left" :y="dragObj.top" @dragging="resize" contentClass="drag_style"
+            :parentLimitation="true" @activated="onActivated" @deactivated="onDeactivated">
+            <div id="main" :style="{ height: dragObj.height + 'px', width: dragObj.width + 'px' }">
             </div>
         </VueDragResize>
     </div>
@@ -12,19 +12,20 @@
 <script setup>
 import { onMounted, reactive } from 'vue';
 import echarts from '@/hooks/echartHook'
-let body = reactive({
+let dragObj = reactive({
     width: 300,
     height: 200,
     top: 0,
-    left: 0
+    left: 0,
+    isActive: false
 })
 let chart;
 // 调正
 const resize = (newRect) => {
-    body.width = newRect.width;
-    body.height = newRect.height;
-    body.top = newRect.top;
-    body.left = newRect.left;
+    dragObj.width = newRect.width;
+    dragObj.height = newRect.height;
+    dragObj.top = newRect.top;
+    dragObj.left = newRect.left;
     chart.resize();
 }
 
@@ -43,6 +44,15 @@ onMounted(() => {
         ]
     })
 })
+
+const onActivated = () => {
+    dragObj.isActive = true;
+}
+
+const onDeactivated = () => {
+    dragObj.isActive = false;
+}
+
 </script>
 
 <style lang="scss" scoped>
@@ -50,5 +60,9 @@ onMounted(() => {
     position: relative;
     height: calc(100% - 5px);
     width: calc(100% - 4px);
+}
+
+.drag_style {
+    border-radius: 50%;
 }
 </style>

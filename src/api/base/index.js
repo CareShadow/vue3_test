@@ -9,5 +9,17 @@ const reqDataSourceList = () => request.get(
     '/base/list',
 )
 
+const reqConnect = (dataSourceId) => request.post(
+    '/base/connect',
+    {
+        dataSourceId
+    },
+    {
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        }
+    }
+)
 
-export { reqDataSourceList }
+
+export { reqDataSourceList, reqConnect }

@@ -19,7 +19,6 @@ let useUserStore = defineStore('User', {
     actions: {
         async userLogin(userForm) {
             const result = await reqLogin(userForm)
-            console.log(result);
             if (result.code === 200) {
                 this.token = result.data
                 SET_TOKEN(result.data)

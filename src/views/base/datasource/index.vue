@@ -26,17 +26,17 @@ onMounted(() => {
     initTableData();
 })
 
-const initTableData = async function () {
-    const reuslt = await reqDataSourceList();
-    if (reuslt.code === 200) {
-        tableData.value = reuslt.data.list;
+const initTableData = async () => {
+    const result = await reqDataSourceList();
+    if (result.code === 200) {
+        tableData.value = result.data.list;
         return 'ok'
     } else {
         return Promise.reject(new Error(result.msg));
     }
 }
 
-const handleConnect = async function (row) {
+const handleConnect = async (row) => {
     const result = await reqConnect(row.id);
     if (result.code === 200) {
         ElMessage({

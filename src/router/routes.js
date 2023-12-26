@@ -96,6 +96,23 @@ let constantRoutes = [
         }
     },
     {
+        path: '/datasource',
+        component: () => import('@/layout/index.vue'),
+        meta: {
+            hidden: true
+        },
+        children: [
+            {
+                path: 'edit',
+                component: () => import('@/views/base/datasource/edit/index.vue'),
+                name: 'edit',
+                meta: {
+                    hidden: true
+                },
+            }
+        ]
+    },
+    {
         path: '/:pathMatch(.*)*',
         redirect: '/404',
         name: 'Any',

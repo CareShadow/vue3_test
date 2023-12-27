@@ -4,13 +4,14 @@
     </el-card>
     <el-card class="box-card">
         <el-table :data="tableData" stripe style="width: 100%">
-            <el-table-column prop="name" fixed label="数据集名称" align="center" width="150" />
+            <el-table-column prop="name" label="数据源名称" align="center" width="150" />
             <el-table-column prop="type" label="数据库类型" align="center" width="150" />
             <el-table-column prop="host" label="主机号" align="center" width="150" />
             <el-table-column prop="port" label="端口" align="center" width="150" />
+            <el-table-column prop="databaseName" label="数据库名" align="center" width="150" />
             <el-table-column prop="createUser" label="创建人" align="center" width="150" />
             <el-table-column prop="createDate" label="创建时间" align="center" width="200" />
-            <el-table-column label="操作" align="center" width="300">
+            <el-table-column label="操作" fixed="right" align="center" width="220">
                 <template #default="scope">
                     <el-button size="small" type="success" @click="handleConnect(scope.row)">连接</el-button>
                     <el-button size="small" type="danger" @click="handleDelete(scope.$index, scope.row)">删除</el-button>

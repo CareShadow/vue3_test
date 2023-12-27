@@ -21,5 +21,10 @@ const reqConnect = (dataSourceId) => request.post(
     }
 )
 
+const reqInsert = (dataSource) => request.post(
+    '/base/insert',
+    dataSource
+)
 
-export { reqDataSourceList, reqConnect }
+
+export { reqDataSourceList, reqConnect, reqInsert }

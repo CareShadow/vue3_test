@@ -5,13 +5,15 @@ import request from "@/utils/request";
  * @param {登录信息} data 
  * @returns 
  */
-const reqLogin = (data) => request.post(
-    '/admin/login',
+const reqLogin = (data) => request({
+    method: 'post',
+    url: '/admin/login',
     data
-)
+})
 
-const reqUserInfo = () => request.get(
-    '/admin/userInfo'
-)
+const reqUserInfo = () => requestt({
+    method: 'get',
+    url: '/admin/userInfo'
+})
 
 export { reqLogin, reqUserInfo }

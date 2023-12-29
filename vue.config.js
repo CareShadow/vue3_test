@@ -44,8 +44,8 @@ module.exports = defineConfig({
     // 代理
     proxy: {
       '/api': {
-        target: 'http://localhost:8081',
-        // target: 'http://120.76.202.102:6021',
+        // target: 'http://localhost:8081',
+        target: 'http://120.76.202.102:6021',
         changeOrigin: true,
         pathRewrite: {
           '^/api': ''

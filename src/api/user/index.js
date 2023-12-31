@@ -11,7 +11,7 @@ const reqLogin = (data) => request({
     data
 })
 
-const reqUserInfo = () => requestt({
+const reqUserInfo = () => request({
     method: 'get',
     url: '/admin/userInfo'
 })

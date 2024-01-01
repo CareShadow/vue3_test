@@ -30,5 +30,16 @@ const reqGetDataSource = (datasourceId) => request({
     url: `/base/get/${datasourceId}`,
 })
 
+const reqEditDataSource = (datasource) => request({
+    method: 'post',
+    url: '/base/edit',
+    data: datasource
+})
 
-export { reqDataSourceList, reqConnect, reqInsert, reqGetDataSource }
+const reqDelete = (dataSourceId) => request({
+    method: 'get',
+    url: `/base/delete/${dataSourceId}`
+})
+
+
+export { reqDataSourceList, reqConnect, reqInsert, reqGetDataSource, reqEditDataSource, reqDelete }

@@ -15,7 +15,7 @@
                 <el-table-column label="操作" fixed="right" align="center" width="220">
                     <template #default="scope">
                         <el-button size="small" type="success" @click="handleConnect(scope.row)">连接</el-button>
-                        <el-button size="small" type="danger" @click="handleDelete(scope.$index, scope.row)">删除</el-button>
+                        <el-button size="small" type="danger" @click="handleDelete(scope.row)">删除</el-button>
                         <el-button size="small" type="primary" @click="editDataSource(scope.row)">编辑</el-button>
                     </template>
                 </el-table-column>
@@ -27,7 +27,7 @@
 <script setup>
 import { Plus } from '@element-plus/icons-vue'
 import { ElMessage } from 'element-plus';
-import { reqDataSourceList, reqConnect } from '@/api/base';
+import { reqDataSourceList, reqConnect, reqDelete } from '@/api/base';
 import { onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router'
 let tableData = ref([]);
@@ -48,6 +48,22 @@ const initTableData = async () => {
 
 const handleConnect = async (row) => {
     const result = await reqConnect(row.id);
+    if (result.code === 200) {
+        ElMessage({
+            message: result.msg,
+            type: 'success',
+        })
+        return 'ok'
+    } else {
+        ElMessage({
+            message: result.msg,
+            type: 'error',
+        })
+    }
+}
+
+const handleDelete = async (row) => {
+    const result = await reqDelete(row.id);
     if (result.code === 200) {
         ElMessage({
             message: result.msg,

@@ -4,7 +4,8 @@
             <div class="tools-flex">
                 <el-button type="primary" :icon="ArrowLeft" @click="goHistory">返回</el-button>
                 <div>
-                    <el-button type="primary" @click="onSubmit(ruleFormRef)">{{ insertOrEdit }}</el-button>
+                    <el-button type="primary" @click="onSubmit(ruleFormRef)">
+                        {{ insertOrEdit }}</el-button>
                     <el-button @click="close">关闭</el-button>
                 </div>
             </div>
@@ -45,7 +46,7 @@
 import { ArrowLeft } from '@element-plus/icons-vue'
 import { ElMessage } from 'element-plus';
 import { onMounted, reactive, ref } from 'vue';
-import { reqInsert, reqGetDataSource } from '@/api/base';
+import { reqInsert, reqGetDataSource, reqEditDataSource } from '@/api/base';
 import { useRouter, useRoute } from 'vue-router';
 
 let $router = useRouter();
@@ -115,21 +116,6 @@ onMounted(async () => {
     }
 })
 
-const onSubmit = async (formEl) => {
-    if (!formEl) return;
-    await formEl.validate((valid, fields) => {
-        if (valid) {
-            insertDataSource(form);
-        } else {
-            ElMessage({
-                message: "请检查表单是否填写完整",
-                type: 'error',
-            })
-        }
-    })
-
-}
-
 const insertDataSource = async (form) => {
     const result = await reqInsert(form);
     if (result.code == 200) {
@@ -144,6 +130,38 @@ const insertDataSource = async (form) => {
             type: 'error',
         })
     }
+}
+
+const editDataSource = async (form) => {
+    let result = await reqEditDataSource(form);
+    let msg = '';
+    let type = '';
+    if (result.code === 200) {
+        msg = '修改成功';
+        type = 'success';
+    } else {
+        msg = result.msg;
+        type = 'error';
+    }
+    ElMessage({
+        message: msg,
+        type: type,
+    })
+}
+
+const onSubmit = async (formEl) => {
+    if (!formEl) return;
+    await formEl.validate((valid, fields) => {
+        if (valid) {
+            insertOrEdit.value == '新增' ? insertDataSource(form) : editDataSource(form)
+        } else {
+            ElMessage({
+                message: "请检查表单是否填写完整",
+                type: 'error',
+            })
+        }
+    })
+
 }
 
 const goHistory = () => {

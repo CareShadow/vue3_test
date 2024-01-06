@@ -14,9 +14,7 @@ let constantRoutes = [
         component: () => import('@/layout/index.vue'),
         name: 'layout',
         meta: {
-            title: '',
             hidden: false,
-            icon: ''
         },
         redirect: '/home',
         children: [
@@ -40,10 +38,10 @@ let constantRoutes = [
             hidden: false,
             icon: 'Tools'
         },
-        redirect: '/datasource',
+        redirect: '/base/datasource',
         children: [
             {
-                path: '/datasource',
+                path: 'datasource',
                 component: () => import('@/views/base/datasource/index.vue'),
                 name: 'datasource',
                 meta: {
@@ -53,7 +51,7 @@ let constantRoutes = [
                 }
             },
             {
-                path: '/datacollection',
+                path: 'datacollection',
                 component: () => import('@/views/base/datacollection/index.vue'),
                 name: 'datacollection',
                 meta: {
@@ -69,13 +67,11 @@ let constantRoutes = [
         component: () => import('@/layout/index.vue'),
         name: 'dev',
         meta: {
-            title: '',
             hidden: false,
-            icon: ''
         },
         children: [
             {
-                path: '/echart',
+                path: '/dev/echart',
                 component: () => import('@/views/echart/index.vue'),
                 name: 'echart',
                 meta: {
@@ -87,15 +83,6 @@ let constantRoutes = [
         ]
     },
     {
-        path: '/404',
-        component: () => import('@/views/404/index.vue'),
-        name: '404', // 命名路由 
-        meta: {
-            title: '404',
-            hidden: true
-        }
-    },
-    {
         path: '/datasource',
         component: () => import('@/layout/index.vue'),
         meta: {
@@ -105,12 +92,38 @@ let constantRoutes = [
             {
                 path: 'edit',
                 component: () => import('@/views/base/datasource/edit/index.vue'),
-                name: 'edit',
                 meta: {
                     hidden: true
                 },
             }
         ]
+    },
+    {
+        path: '/datacollection',
+        component: () => import('@/layout/index.vue'),
+        meta: {
+            hidden: false,
+        },
+        children: [
+            {
+                path: '/datacollection/edit',
+                component: () => import('@/views/base/datacollection/edit/index.vue'),
+                meta: {
+                    title: '数据集测试',
+                    hidden: false,
+                    icon: 'Document'
+                },
+            }
+        ]
+    },
+    {
+        path: '/404',
+        component: () => import('@/views/404/index.vue'),
+        name: '404', // 命名路由 
+        meta: {
+            title: '404',
+            hidden: true
+        }
     },
     {
         path: '/:pathMatch(.*)*',

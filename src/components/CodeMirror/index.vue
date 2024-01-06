@@ -12,7 +12,7 @@ import { tags } from "@lezer/highlight"
 import { HighlightStyle, syntaxHighlighting } from "@codemirror/language"
 import { oneDark } from '@codemirror/theme-one-dark'
 
-const code = ref('select * from table')
+const code = defineProps(['code']);
 
 const myHighlightStyle = HighlightStyle.define([
     { tag: tags.keyword, color: "navy", fontWeight: "700", lineHeight: "1em" },

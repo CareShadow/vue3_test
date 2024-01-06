@@ -7,7 +7,6 @@
                 <el-table-column prop="address" label="Address" />
             </el-table>
         </el-card>
-        <CodeEditor />
     </div>
 </template>
 

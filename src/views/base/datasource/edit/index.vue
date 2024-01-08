@@ -169,7 +169,7 @@ const goHistory = () => {
 }
 
 const close = () => {
-    $router.push('/datasource')
+    $router.push('/base/datasource')
 }
 </script>
   

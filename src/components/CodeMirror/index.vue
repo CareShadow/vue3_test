@@ -1,5 +1,5 @@
 <template>
-    <codemirror v-model="code" placeholder="Please start your inquiry" :style="{ height: '400px', fontSize: '16px' }"
+    <codemirror v-model="code" placeholder="Please start your inquiry" :style="{ height: '380px', fontSize: '16px' }"
         :autofocus="true" :indent-with-tab="true" :tab-size="2" :extensions="extensions"
         @change="(value) => $emit('changeByEditor', value)" />
 </template>

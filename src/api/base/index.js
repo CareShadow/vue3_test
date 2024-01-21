@@ -41,5 +41,10 @@ const reqDelete = (dataSourceId) => request({
     url: `/base/delete/${dataSourceId}`
 })
 
+const reqEnumsData = () => request({
+    method: 'get',
+    url: '/base/enums/list'
+})
 
-export { reqDataSourceList, reqConnect, reqInsert, reqGetDataSource, reqEditDataSource, reqDelete }
+
+export { reqDataSourceList, reqConnect, reqInsert, reqGetDataSource, reqEditDataSource, reqDelete, reqEnumsData }

@@ -9,7 +9,6 @@
                     <el-button @click="close">关闭</el-button>
                 </div>
             </div>
-
         </el-card>
         <el-card class="box-card">
             <el-form :model="dataset" :inline="true" :rules="rules" ref="ruleFormRef" label-width="120px">
@@ -29,7 +28,7 @@
             </el-form>
         </el-card>
         <div>
-            <CodeEditor @changeByEditor="changeCode" />
+            <CodeEditor v-model="dataset.executeSql" />
         </div>
     </div>
 </template>
@@ -94,7 +93,7 @@ const reqSourceEnums = async () => {
 const insertDataSet = async (dataset) => {
     let result = await reqInserDataSet(dataset);
     if (result.code === 200) {
-        message(result.msg, 'suceess');
+        message(result.msg, 'success');
         return 'ok';
     } else {
         return Promise.reject(new Error(result.msg))
@@ -113,10 +112,6 @@ const onSubmit = async () => {
             message("请检查表单是否填写完整", 'error')
         }
     });
-}
-
-const changeCode = (value) => {
-    dataset.executeSql = value;
 }
 
 const goHistory = () => {

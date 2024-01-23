@@ -4,7 +4,7 @@
             <div class="tools-flex">
                 <el-button type="primary" :icon="ArrowLeft" @click="goHistory">返回</el-button>
                 <div>
-                    <el-button type="primary" @click="onSubmit">保存</el-button>
+                    <el-button type="primary" @click="onSubmit"> {{ insertOrEdit }}</el-button>
                     <el-button type="success" @click="execute">执行</el-button>
                     <el-button @click="close">关闭</el-button>
                 </div>
@@ -30,20 +30,29 @@
         <div>
             <CodeEditor v-model="dataset.executeSql" />
         </div>
+        <div>
+            <el-table :data="resultSet" style="width: 100%;height: 280px;">
+                <el-table-column v-for="(item, index) in resultName" :prop="item" :label="item" :key="index" />
+            </el-table>
+        </div>
     </div>
 </template>
 
 <script setup>
 import { ref, reactive, onMounted } from 'vue'
-import { reqEnumsData } from '@/api/base/index';
-import { useRouter } from 'vue-router';
+import { reqEnumsData, reqExecuteSQL } from '@/api/base/index';
+import { useRouter, useRoute } from 'vue-router';
 import { ElNotification } from 'element-plus';
 import { message } from '@/utils/message';
-import { reqInserDataSet } from '@/api/dataset/index';
+import { reqInserDataSet, reqGetDataSet, reqEditDataSet } from '@/api/dataset/index';
 import { ArrowLeft } from '@element-plus/icons-vue';
 
 let $router = useRouter();
+let $route = useRoute();
 const ruleFormRef = ref();
+let insertOrEdit = ref();
+let resultSet = ref([]);
+let resultName = ref([]);
 
 const rules = reactive({
     name: [
@@ -63,6 +72,7 @@ const rules = reactive({
 onMounted(async () => {
     try {
         await reqSourceEnums();
+        await fetchData();
     } catch (error) {
         ElNotification({
             type: 'error',
@@ -79,6 +89,19 @@ let dataset = reactive({
 })
 
 let dataSourceEnums = ref([]);
+
+const fetchData = async () => {
+    let datasetId = $route.query.id;
+    if (datasetId) insertOrEdit.value = '保存';
+    else { insertOrEdit.value = '新增'; return; }
+    const result = await reqGetDataSet(datasetId);
+    if (result.code === 200) {
+        Object.assign(dataset, result.data);
+        return 'ok';
+    } else {
+        return Promise.reject(new Error(result.msg));
+    }
+}
 
 const reqSourceEnums = async () => {
     let result = await reqEnumsData()
@@ -100,11 +123,25 @@ const insertDataSet = async (dataset) => {
     }
 }
 
+const editDataSet = async (dataset) => {
+    let result = await reqEditDataSet(dataset);
+    let msg = '';
+    let type = '';
+    if (result.code === 200) {
+        msg = '修改成功';
+        type = 'success';
+    } else {
+        msg = result.msg;
+        type = 'error';
+    }
+    message(msg, type)
+}
+
 const onSubmit = async () => {
     await ruleFormRef.value.validate(async (valid, fileds) => {
         if (valid) {
             try {
-                await insertDataSet(dataset);
+                insertOrEdit.value == '新增' ? await insertDataSet(dataset) : await editDataSet(dataset);
             } catch (error) {
                 message(error.message, 'error')
             }
@@ -118,8 +155,20 @@ const goHistory = () => {
     $router.back();
 }
 
-const execute = () => {
-    alert('执行中' + code.value)
+const execute = async () => {
+    await ruleFormRef.value.validate(async (valid, fileds) => {
+        if (valid) {
+            try {
+                const result = await reqExecuteSQL(dataset);
+                resultSet.value = result.data;
+                resultName.value = Object.keys(resultSet.value[0]);
+            } catch (error) {
+                message(error.message, 'error')
+            }
+        } else {
+            message("请检查表单是否填写完整", 'error')
+        }
+    });
 }
 
 const close = () => {

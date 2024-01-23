@@ -25,9 +25,10 @@
 import { Plus } from '@element-plus/icons-vue';
 import { ref, onMounted } from 'vue';
 import { reqListDataSet } from '@/api/dataset/index';
+import { useRouter } from 'vue-router';
 
 let datasetList = ref([]);
-
+let $router = useRouter();
 onMounted(() => {
     initTableData();
 })
@@ -42,9 +43,13 @@ const initTableData = async () => {
     }
 }
 
-const insertDataSet = () => { }
+const insertDataSet = () => {
+    $router.push('/datacollection/edit')
+}
 
-const editDataSet = () => { }
+const editDataSet = (row) => {
+    $router.push({ path: '/datacollection/edit', query: { id: row.id } })
+}
 
 const handleDelete = () => { }
 </script>

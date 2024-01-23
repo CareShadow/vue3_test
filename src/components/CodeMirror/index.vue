@@ -1,6 +1,6 @@
 <template>
-    <codemirror v-model="props.modelValue" placeholder="Please start your inquiry"
-        :style="{ height: '380px', fontSize: '16px' }" :autofocus="true" :indent-with-tab="true" :tab-size="2"
+    <codemirror :model-value="props.modelValue" placeholder="Please start your inquiry"
+        :style="{ height: '200px', fontSize: '16px' }" :autofocus="true" :indent-with-tab="true" :tab-size="2"
         :extensions="extensions" @change="(value) => emit('update:modelValue', value)" />
 </template>
   

@@ -94,7 +94,7 @@ const rules = reactive({
 const fetchData = async () => {
     let datasourceId = $route.query.id;
     if (datasourceId) insertOrEdit.value = '修改';
-    else insertOrEdit.value = '新增';
+    else { insertOrEdit.value = '新增'; return; }
     const result = await reqGetDataSource(datasourceId);
     if (result.code === 200) {
         // 重点,可以用Object.assign来复制过去

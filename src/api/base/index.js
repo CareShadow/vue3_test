@@ -46,5 +46,11 @@ const reqEnumsData = () => request({
     url: '/base/enums/list'
 })
 
+const reqExecuteSQL = (data) => request({
+    method: 'post',
+    url: '/base/executeSql',
+    data
+})
 
-export { reqDataSourceList, reqConnect, reqInsert, reqGetDataSource, reqEditDataSource, reqDelete, reqEnumsData }
+
+export { reqDataSourceList, reqConnect, reqInsert, reqGetDataSource, reqEditDataSource, reqDelete, reqEnumsData, reqExecuteSQL }

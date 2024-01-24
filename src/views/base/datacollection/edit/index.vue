@@ -31,7 +31,7 @@
             <CodeEditor v-model="dataset.executeSql" />
         </div>
         <div>
-            <el-table :data="resultSet" style="width: 100%;height: 280px;">
+            <el-table :data="resultSet" max-height="280px" :table-layout="auto">
                 <el-table-column v-for="(item, index) in resultName" :prop="item" :label="item" :key="index" />
             </el-table>
         </div>

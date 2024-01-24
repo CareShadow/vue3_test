@@ -31,7 +31,7 @@
             <CodeEditor v-model="dataset.executeSql" />
         </div>
         <div>
-            <el-table :data="resultSet" max-height="280px" :table-layout="auto">
+            <el-table :data="resultSet" max-height="280px" table-layout="auto">
                 <el-table-column v-for="(item, index) in resultName" :prop="item" :label="item" :key="index" />
             </el-table>
         </div>
@@ -85,7 +85,7 @@ let dataset = reactive({
     name: '',
     type: '',
     sourceId: '',
-    executeSql: 'select * \nfrom table'
+    executeSql: ''
 })
 
 let dataSourceEnums = ref([]);
@@ -160,8 +160,16 @@ const execute = async () => {
         if (valid) {
             try {
                 const result = await reqExecuteSQL(dataset);
-                resultSet.value = result.data;
-                resultName.value = Object.keys(resultSet.value[0]);
+                if (result.code === 200) {
+                    if (result.data != null) {
+                        resultSet.value = result.data;
+                        resultName.value = Object.keys(resultSet.value[0]);
+                    }
+                    message(result.msg, 'success');
+                } else {
+                    message(result.msg, 'error');
+                }
+
             } catch (error) {
                 message(error.message, 'error')
             }

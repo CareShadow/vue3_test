@@ -102,16 +102,14 @@ let constantRoutes = [
         path: '/datacollection',
         component: () => import('@/layout/index.vue'),
         meta: {
-            hidden: false,
+            hidden: true,
         },
         children: [
             {
                 path: '/datacollection/edit',
                 component: () => import('@/views/base/datacollection/edit/index.vue'),
                 meta: {
-                    title: '数据集测试',
-                    hidden: false,
-                    icon: 'Document'
+                    hidden: true,
                 },
             }
         ]

@@ -8,7 +8,6 @@
 *:after,
 *:before {
     box-sizing: border-box;
-
     outline: none;
 }
 
@@ -189,4 +188,16 @@ code,
 pre {
     font-family: monospace, monospace;
     font-size: 1em;
+}
+
+::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+    border-radius: 5px;
+    background-color: #aaa
+    /* 设置滚动条宽度 */
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #fff;
 }

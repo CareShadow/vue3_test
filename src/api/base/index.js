@@ -2,8 +2,8 @@ import request from "@/utils/request";
 
 /**
  * 数据源接口
- * @param {数据源信息} data 
- * @returns 
+ * @param {数据源信息} data
+ * @returns
  */
 const reqDataSourceList = () => request({
     method: 'get',
@@ -13,7 +13,7 @@ const reqDataSourceList = () => request({
 const reqConnect = (dataSourceId) => request({
     method: 'post',
     url: '/base/connect',
-    data: { dataSourceId },
+    data: {dataSourceId},
     headers: {
         'Content-Type': 'application/x-www-form-urlencoded'
     }
@@ -53,4 +53,13 @@ const reqExecuteSQL = (data) => request({
 })
 
 
-export { reqDataSourceList, reqConnect, reqInsert, reqGetDataSource, reqEditDataSource, reqDelete, reqEnumsData, reqExecuteSQL }
+export {
+    reqDataSourceList,
+    reqConnect,
+    reqInsert,
+    reqGetDataSource,
+    reqEditDataSource,
+    reqDelete,
+    reqEnumsData,
+    reqExecuteSQL
+}

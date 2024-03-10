@@ -5,11 +5,11 @@
                 <el-button type="primary" :icon="ArrowLeft" @click="goHistory">返回</el-button>
                 <div>
                     <el-button type="primary" @click="onSubmit(ruleFormRef)">
-                        {{ insertOrEdit }}</el-button>
+                        {{ insertOrEdit }}
+                    </el-button>
                     <el-button @click="close">关闭</el-button>
                 </div>
             </div>
-
         </el-card>
         <el-card class="box-card">
             <el-form :model="form" :inline="true" :rules="rules" ref="ruleFormRef" label-width="120px">
@@ -41,7 +41,7 @@
         </el-card>
     </div>
 </template>
-  
+
 <script setup>
 import { ArrowLeft } from '@element-plus/icons-vue'
 import { ElMessage } from 'element-plus';
@@ -161,7 +161,6 @@ const onSubmit = async (formEl) => {
             })
         }
     })
-
 }
 
 const goHistory = () => {
@@ -172,7 +171,7 @@ const close = () => {
     $router.push('/base/datasource')
 }
 </script>
-  
+
 
 <script setup>
 

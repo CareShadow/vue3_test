@@ -32,7 +32,7 @@
         </div>
         <div>
             <el-table :data="resultSet" max-height="280px" table-layout="auto">
-                <el-table-column v-for="(item, index) in resultName" :prop="item" :label="item" :key="index" />
+                <el-table-column v-for="(item, index) in resultName" :prop="item" :label="item" :key="index" :min-width="200" />
             </el-table>
         </div>
     </div>

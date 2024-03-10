@@ -10,7 +10,7 @@ import pinia from '@/store/index.js'
 import globalComponent from '@/components/index.js'
 import './permission'
 
-const app = createApp(App)
+const app = createApp(App);
 app.use(router);
 app.use(pinia);
 app.use(globalComponent);

@@ -19,23 +19,34 @@
         <div class="echart_component" draggable="true">15</div>
         <div class="echart_component" draggable="true">16</div>
       </div>
-      <div class="draw" ref="drawArea" @dragover.prevent @drop="createEcharts($event)">
-        <input type="text" placeholder="w" id="w">
-        <input type="text" placeholder="h" id="h">
-        <input type="text" placeholder="x" id="x">
-        <input type="text" placeholder="y" id="y">
-        <VueDragResize v-for="item in echartList"
-                       :is-resizable="true"
-                       :w="parseInt(item.width)"
-                       :h="parseInt(item.height)"
-                       :x="parseInt(item.left)"
-                       :y="parseInt(item.top)"
-                       :parent-limitation="true"
-                       @resizing="resize($event, item)"
-                       @dragging="resize($event, item)">
-          <div :style="item" :id="item.id">
-          </div>
-        </VueDragResize>
+      <div class="draw">
+        <div class="tools_box">
+          <label for="box_width">W:</label>
+          <input id="box_width" type="text" class="mi-input mi-box-style-input">
+          <label for="box_height">H:</label>
+          <input id="box_height" type="text" class="mi-input mi-box-style-input">
+          <label for="box_left">X:</label>
+          <input id="box_left" type="text" class="mi-input mi-box-style-input">
+          <label for="box_top">Y:</label>
+          <input id="box_top" type="text" class="mi-input mi-box-style-input">
+          <label for="box_zindex">Z:</label>
+          <input id="box_zindex" type="text" class="mi-input mi-box-style-input">
+        </div>
+        <div ref="drawArea" @dragover.prevent @drop="createEcharts($event)" class="drawArea">
+          <VueDragResize v-for="item in echartList"
+                         :is-resizable="true"
+                         :w="parseInt(item.width)"
+                         :h="parseInt(item.height)"
+                         :x="parseInt(item.left)"
+                         :y="parseInt(item.top)"
+                         :parent-limitation="true"
+                         @resizing="resize($event, item)"
+                         @activated="onActivated(item)"
+                         @dragging="resize($event, item)">
+            <div :style="item" :id="item.id">
+            </div>
+          </VueDragResize>
+        </div>
       </div>
     </div>
   </div>
@@ -102,6 +113,17 @@ const resize = (e, item) => {
   // echart组件重新适配容器大小
   chart.resize();
 }
+
+const onActivated = (item) => {
+  const w = drawArea.value.querySelector("#w");
+  const h = drawArea.value.querySelector("#h");
+  const x = drawArea.value.querySelector("#x");
+  const y = drawArea.value.querySelector("#y");
+  w.value = item.width;
+  h.value = item.height;
+  x.value = item.left;
+  y.value = item.top;
+}
 </script>
 
 <style lang="scss" scoped>
@@ -135,9 +157,28 @@ const resize = (e, item) => {
 
   .draw {
     width: calc(100vw - 310px);
-    position: relative;
     height: inherit;
-    overflow: auto;
+
+
+    .drawArea {
+      position: relative;
+      height: calc(100vh - 30px);
+      overflow: auto;
+    }
+
+    .tools_box {
+      background-color: #36383B;
+      height: 30px;
+      padding: 5px 0;
+      color: #ffffff99;
+
+      .mi-input {
+        width: 40px;
+        height: 20px;
+        background-color: #ffffff99;
+        color: black;
+      }
+    }
   }
 }
 

@@ -22,15 +22,15 @@
       <div class="draw">
         <div class="tools_box">
           <label for="box_width">W:</label>
-          <input id="box_width" type="text" class="mi-input mi-box-style-input">
+          <input id="box_width" type="text" class="mi-input" v-model="selectedList[0].width">
           <label for="box_height">H:</label>
-          <input id="box_height" type="text" class="mi-input mi-box-style-input">
+          <input id="box_height" type="text" class="mi-input" v-model="selectedList[0].height">
           <label for="box_left">X:</label>
-          <input id="box_left" type="text" class="mi-input mi-box-style-input">
+          <input id="box_left" type="text" class="mi-input" v-model="selectedList[0].left">
           <label for="box_top">Y:</label>
-          <input id="box_top" type="text" class="mi-input mi-box-style-input">
+          <input id="box_top" type="text" class="mi-input" v-model="selectedList[0].top">
           <label for="box_zindex">Z:</label>
-          <input id="box_zindex" type="text" class="mi-input mi-box-style-input">
+          <input id="box_zindex" type="text" class="mi-input" v-model="selectedList[0].zindex">
         </div>
         <div ref="drawArea" @dragover.prevent @drop="createEcharts($event)" class="drawArea">
           <VueDragResize v-for="item in echartList"
@@ -58,6 +58,8 @@ import {ref, nextTick} from "vue";
 import {v4 as uuidv4} from "uuid";
 import echarts from '@/hooks/echartHook';
 
+// 被选择元素的数组
+const selectedList = ref([{}]);
 // 变量必须和ref="drawArea"同名
 const drawArea = ref(null);
 // 控件列表变量
@@ -72,7 +74,8 @@ const createEcharts = (e) => {
     backgroundColor: "#90EE90",
     opacity: 0.3,
     left: e.clientX - 310 + "px",
-    top: e.clientY + "px"
+    top: e.clientY + "px",
+    zindex: 0
   }
   echartList.value.push(item);
   nextTick(() => {
@@ -115,14 +118,8 @@ const resize = (e, item) => {
 }
 
 const onActivated = (item) => {
-  const w = drawArea.value.querySelector("#w");
-  const h = drawArea.value.querySelector("#h");
-  const x = drawArea.value.querySelector("#x");
-  const y = drawArea.value.querySelector("#y");
-  w.value = item.width;
-  h.value = item.height;
-  x.value = item.left;
-  y.value = item.top;
+  selectedList.value.pop();
+  selectedList.value.push(item);
 }
 </script>
 
@@ -169,28 +166,19 @@ const onActivated = (item) => {
     .tools_box {
       background-color: #36383B;
       height: 30px;
-      padding: 5px 0;
+      padding: 5px 10px;
       color: #ffffff99;
 
       .mi-input {
         width: 40px;
-        height: 20px;
-        background-color: #ffffff99;
-        color: black;
+        height: 17px;
+        margin: 0 5px;
+        background-color: #ffffff30;
+        color: #eee;
+        font-size: 14px;
+        border: #ffffff99 1px solid;
       }
     }
   }
-}
-
-
-.newElement {
-  background-color: #c6ffff70;
-  position: absolute;
-  left: 0px;
-  top: 0px;
-}
-
-.newElement_click {
-  border: 1px green dashed;
 }
 </style>

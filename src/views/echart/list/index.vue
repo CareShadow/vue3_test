@@ -32,7 +32,12 @@
           <label for="box_zindex">Z:</label>
           <input id="box_zindex" type="text" class="mi-input" autocomplete="off" v-model.number.lazy="showZindex">
         </div>
-        <div ref="drawArea" @dragover.prevent @drop="createEcharts($event)" class="drawArea">
+        <div ref="drawArea"
+             class="drawArea"
+             @dragover.prevent
+             @drop="createEcharts($event)"
+             contenteditable="true"
+             @keydown="directionMove($event)">
           <VueDragResize v-for="item in echartList"
                          :is-resizable="true"
                          :is-active="item.isActive"
@@ -129,6 +134,7 @@ const createEcharts = (e) => {
   nextTick(() => {
     // 找到渲染出来的dom元素，用于初始化echart组件
     const echartItem = drawArea.value.querySelector(`[id="${uuid}"]`);
+    drawArea.value.focus();
     // echart中的option定义，用于测试
     const option = {
       grid: {
@@ -168,6 +174,7 @@ const resize = (e, item) => {
 const onActivated = (item) => {
   // 点击元素将它的配置选项数值放置到被选择的元素数组上
   item.isActive = true;
+  item.backgroundColor = "#90EE90"
   selectedList.value.push(item);
 }
 
@@ -175,7 +182,34 @@ const onDeactivated = (item) => {
   const index = selectedList.value.findIndex(obj => obj.id = item.id);
   selectedList.value.splice(index, 1);
   item.isActive = false;
+  item.backgroundColor = "transparent"
 }
+
+const directionMove = (e) => {
+  if (selectedList.value.length <= 0) {
+    return;
+  }
+  const keyCode = e.code;
+  selectedList.value.forEach(item => {
+    switch (keyCode) {
+      case "ArrowRight":
+        item.left = parseInt(item.left) + 1 + "px"
+        break;
+      case "ArrowLeft":
+        item.left = parseInt(item.left) - 1 + "px"
+        break;
+      case "ArrowDown":
+        item.top = parseInt(item.top) + 1 + "px"
+        break;
+      case "ArrowUp":
+        item.top = parseInt(item.top) - 1 + "px"
+        break;
+      default:
+        return;
+    }
+  })
+}
+
 
 </script>
 

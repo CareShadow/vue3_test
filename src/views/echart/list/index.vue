@@ -2,8 +2,8 @@
   <div>
     <div class="container">
       <div class="silder">
-        <div class="echart_component" draggable="true" ref="line">1</div>
-        <div class="echart_component" draggable="true" ref="bar">2</div>
+        <div class="echart_component" draggable="true" @dragstart="echartType = lineOption">1</div>
+        <div class="echart_component" draggable="true" @dragstart="echartType = barOption">2</div>
         <div class="echart_component" draggable="true">3</div>
         <div class="echart_component" draggable="true">4</div>
         <div class="echart_component" draggable="true">5</div>
@@ -37,7 +37,7 @@
              @dragover.prevent
              @drop="createEcharts($event)"
              contenteditable="true"
-             @keydown="directionMove($event)">
+             @keydown.prevent="directionMove($event)">
           <VueDragResize v-for="item in echartList"
                          :is-resizable="true"
                          :is-active="item.isActive"
@@ -52,7 +52,8 @@
                          @resizing="resize($event, item)"
                          @activated="onActivated(item)"
                          @deactivated="onDeactivated(item)"
-                         @dragging="resize($event, item)">
+                         @dragging="resize($event, item)"
+                         :key="item.id">
             <div :style="item" :id="item.id">
             </div>
           </VueDragResize>
@@ -67,7 +68,9 @@
 import {ref, nextTick, computed, watch} from "vue";
 import {v4 as uuidv4} from "uuid";
 import echarts from '@/hooks/echartHook';
+import {barOption, lineOption} from '@/options/option'
 
+const echartType = ref();
 // 被选择元素的数组
 const selectedList = ref([]);
 // 变量必须和ref="drawArea"同名
@@ -124,7 +127,7 @@ const createEcharts = (e) => {
     isActive: true,
     width: 200 + "px",
     height: 150 + "px",
-    backgroundColor: "#90EE90",
+    backgroundColor: "#90ee90",
     opacity: 0.3,
     left: e.clientX - 310 + "px",
     top: e.clientY + "px",
@@ -136,24 +139,7 @@ const createEcharts = (e) => {
     const echartItem = drawArea.value.querySelector(`[id="${uuid}"]`);
     drawArea.value.focus();
     // echart中的option定义，用于测试
-    const option = {
-      grid: {
-        top: 30,
-        left: 30,
-        bottom: 30,
-        right: 30
-      },
-      xAxis: {
-        data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
-      },
-      yAxis: {},
-      series: [
-        {
-          type: 'bar',
-          data: [23, 24, 18, 25, 27, 28, 25]
-        }
-      ]
-    };
+    const option = echartType.value;
     const barChart = echarts.init(echartItem);
     barChart.setOption(option);
   })
@@ -165,8 +151,8 @@ const resize = (e, item) => {
   item.width = e.width + "px";
   item.height = e.height + "px";
   // 找到渲染出来的dom元素，用于初始化echart组件
-  const echartItem = drawArea.value.querySelector(`[id="${item.id}"]`);
-  const chart = echarts.getInstanceByDom(echartItem);
+  let echartItem = drawArea.value.querySelector(`[id="${item.id}"]`);
+  let chart = echarts.getInstanceByDom(echartItem);
   // echart组件重新适配容器大小
   chart.resize();
 }
@@ -175,14 +161,16 @@ const onActivated = (item) => {
   // 点击元素将它的配置选项数值放置到被选择的元素数组上
   item.isActive = true;
   item.backgroundColor = "#90EE90"
+  item.opacity = 0.3
   selectedList.value.push(item);
 }
 
 const onDeactivated = (item) => {
-  const index = selectedList.value.findIndex(obj => obj.id = item.id);
+  const index = selectedList.value.findIndex(obj => obj.id === item.id);
   selectedList.value.splice(index, 1);
   item.isActive = false;
   item.backgroundColor = "transparent"
+  item.opacity = 1
 }
 
 const directionMove = (e) => {
@@ -204,10 +192,24 @@ const directionMove = (e) => {
       case "ArrowUp":
         item.top = parseInt(item.top) - 1 + "px"
         break;
+      case "Delete":
+        deleteEcharts();
+        break;
       default:
         return;
     }
   })
+}
+
+/**
+ * 删除元素， 同时selectedList和echartList要做出调整
+ */
+const deleteEcharts = () => {
+  selectedList.value.forEach(item => {
+    const index = echartList.value.findIndex(obj => obj.id === item.id);
+    echartList.value.splice(index, 1);
+  })
+  selectedList.value.splice(0, selectedList.value.length);
 }
 
 

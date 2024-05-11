@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="container">
-      <div class="silder">
+      <div class="slider">
         <div class="echart_component" draggable="true" @dragstart="echartType = lineOption">1</div>
         <div class="echart_component" draggable="true" @dragstart="echartType = barOption">2</div>
         <div class="echart_component" draggable="true">3</div>
@@ -144,7 +144,6 @@ const createEcharts = (e) => {
     barChart.setOption(option);
   })
 }
-
 const resize = (e, item) => {
   item.left = e.left + "px";
   item.top = e.top + "px";
@@ -222,7 +221,7 @@ const deleteEcharts = () => {
   background-color: beige;
   background-image: url(@/assets/images/darw.png);
 
-  .silder {
+  .slider {
     display: flex;
     flex: none;
     flex-wrap: wrap;

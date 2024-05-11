@@ -51,7 +51,9 @@ const editDataSet = (row) => {
     $router.push({ path: '/datacollection/edit', query: { id: row.id } })
 }
 
-const handleDelete = () => { }
+const handleDelete = () => {
+  window.alert("功能待开发, 逻辑存在")
+}
 </script>
 
 <style lang="scss" scoped>

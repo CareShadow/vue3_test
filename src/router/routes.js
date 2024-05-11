@@ -12,14 +12,13 @@ let constantRoutes = [
         //登录成功以后展示数据的路由
         path: '/',
         component: () => import('@/layout/index.vue'),
-        name: 'layout',
         meta: {
             hidden: false,
         },
         redirect: '/home',
         children: [
             {
-                path: '/home',
+                path: 'home',
                 component: () => import('@/views/home/index.vue'),
                 meta: {
                     title: '首页',
@@ -32,7 +31,6 @@ let constantRoutes = [
     {
         path: '/base',
         component: () => import('@/layout/index.vue'), // 父路由要有router-view
-        name: 'base',
         meta: {
             title: 'MI-BASE',
             hidden: false,
@@ -65,7 +63,6 @@ let constantRoutes = [
     {
         path: '/dev',
         component: () => import('@/layout/index.vue'),
-        name: 'dev',
         meta: {
             hidden: false,
         },
